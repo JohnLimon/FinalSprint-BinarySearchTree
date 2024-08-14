@@ -27,7 +27,7 @@ Spring Boot
    Ensure that MySQL is running and create a database named finalsprint_db.
    Update the database configuration in src/main/resources/application.properties, If you choose a     
    different name.
-3. Run the Application: Once your database is created, run the BinarySearchTree file.
+3. Run the Application: Once your database is created, run the Main file.
 4. Testing the API: Open Postman and perform a GET request on http://localhost:8080/ to see the available   
    links.
 
