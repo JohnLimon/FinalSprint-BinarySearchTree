@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+    <title>Binary Search Tree Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header-content {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        .header-content nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+        .header-content nav a:hover {
+            text-decoration: underline;
+        }
+        .form-container {
+            padding: 20px;
+            text-align: center;
+        }
+        .form-label {
+            font-size: 16px;
+        }
+        .form-input {
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+            width: 80%;
+            max-width: 500px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        footer {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-content">
+        <h1>Binary Search Tree Generator</h1>
+        <nav>
+            <a th:href="@{/previous-trees}">Show Previous Trees</a>
+            <a th:href="@{/}">Home</a>
+        </nav>
+    </div>
+</header>
+<div class="form-container">
+    <form th:action="@{/process-numbers}" method="post">
+        <label for="numbers" class="form-label">Enter a series of numbers separated by a space:</label>
+        <input type="text" id="numbers" name="numbers" class="form-input" required>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+<footer class="footer">
+    <span>&#169;</span> John Limon
+</footer>
+</body>
+</html>

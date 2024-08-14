@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+    <title>Previous Trees</title>
+    <script>
+        // Function to pretty-print JSON for each tree once the page has loaded
+        window.onload = function() {
+            let jsonContainers = document.querySelectorAll('.json-structure');
+            jsonContainers.forEach(function(container) {
+                // Parse and pretty-print the JSON string
+                try {
+                    let json = JSON.parse(container.textContent);
+                    container.textContent = JSON.stringify(json, null, 2);
+                } catch (e) {
+                    console.error("Error parsing JSON:", e);
+                }
+            });
+        };
+    </script>
+    <style>
+        /* General body styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f9fc;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        /* Styling for the main header */
+        h2 {
+            color: #5a5a5a;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Styling for the header section */
+        .header-content {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        .header-content nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .header-content nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Styling for the container of previous trees */
+        .trees-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Styling for each tree item */
+        .tree-item {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Styling for the tree details */
+        .tree-details {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        /* Styling for the JSON structure */
+        .json-structure {
+            white-space: pre; /* Preserve whitespace */
+            font-family: monospace; /* Monospace font for JSON */
+            background-color: #f4f4f4; /* Light gray background */
+            padding: 10px; /* Padding for spacing */
+            border-radius: 5px; /* Rounded corners */
+            overflow-x: auto; /* Horizontal scrolling for long lines */
+            border: 1px solid #ddd; /* Border for separation */
+            max-height: 300px; /* Max height to keep content readable */
+        }
+
+        /* Back link styling */
+        a.back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        a.back-link:hover {
+            background-color: #45a049;
+        }
+
+        /* Empty message styling */
+        .empty-message {
+            text-align: center;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-content">
+        <h1>Binary Search Tree Generator</h1>
+        <nav>
+            <a href="/previous-trees">Show Previous Trees</a>
+            <a href="/enter-numbers">Enter Numbers</a>
+        </nav>
+    </div>
+</header>
+<h2>Previous Trees</h2>
+
+<!-- Show previous trees if available -->
+<!--/*@thymesVar id="trees" type=""*/-->
+<div class="trees-container" th:if="${trees != null && !trees.isEmpty()}">
+    <ul>
+        <li class="tree-item" th:each="tree, iterStat : ${trees}">
+            <div class="tree-details">Numbers: <span th:text="${tree.inputNumbers}">Numbers</span></div>
+            <div class="tree-details">Tree Structure:
+                <pre class="json-structure" th:id="'json-' + ${iterStat.index}" th:text="${tree.treeStructure}">Tree Structure</pre>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<!-- Show a message if no trees are available -->
+<div class="empty-message" th:if="${trees == null || trees.isEmpty()}">
+    <p>No previous trees found.</p>
+</div>
+
+<a href="/enter-numbers" class="back-link">Back</a>
+</body>
+</html>

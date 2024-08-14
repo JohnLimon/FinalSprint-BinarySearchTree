@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+  <title>Previous Trees</title>
+  <script>
+    // Function to pretty-print JSON for each tree once the page has loaded
+    window.onload = function() {
+      let jsonContainers = document.querySelectorAll('.json-structure');
+      jsonContainers.forEach(function(container) {
+        // Parse and pretty-print the JSON string
+        try {
+          let json = JSON.parse(container.textContent);
+          container.textContent = JSON.stringify(json, null, 2);
+        } catch (e) {
+          console.error("Error parsing JSON:", e);
+        }
+      });
+    };
+  </script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f9fc;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    /* Styling for the header section */
+    .header-content {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+    }
+
+    .header-content nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+    }
+
+    .header-content nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* Styling for JSON display */
+    .json-structure {
+      white-space: pre; /* Ensure whitespace is preserved */
+      font-family: monospace; /* Use a monospace font for JSON */
+      background-color: #f4f4f4; /* Light gray background for readability */
+      padding: 10px; /* Padding for better spacing */
+      border: 1px solid #ddd; /* Light border for visual separation */
+    }
+
+    /* Styling for the back link */
+    a.back-link {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      text-align: center;
+      transition: background-color 0.3s;
+    }
+
+    a.back-link:hover {
+      background-color: #45a049;
+    }
+
+    /* Styling for the empty message */
+    .empty-message {
+      text-align: center;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="header-content">
+    <h1>Previous Trees</h1>
+    <nav>
+      <a href="/enter-numbers">Back</a>
+    </nav>
+  </div>
+</header>
+<h2>Previous Trees</h2>
+
+<!-- Show previous trees if available -->
+<div th:if="${trees != null && !trees.isEmpty()}">
+  <ul>
+    <li th:each="tree, iterStat : ${trees}">
+      <div>Numbers: <span th:text="${tree.inputNumbers}">Numbers</span></div>
+      <!-- Unique ID for each tree's JSON container -->
+      <div>Tree Structure:
+        <pre class="json-structure" th:id="'json-' + ${iterStat.index}" th:text="${tree.treeStructure}">Tree Structure</pre>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<!-- Show a message if no trees are available -->
+<div th:if="${trees == null || trees.isEmpty()}" class="empty-message">
+  <p>No previous trees found.</p>
+</div>
+
+<a href="/enter-numbers" class="back-link">Back</a>
+</body>
+</html>
